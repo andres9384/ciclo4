@@ -28,8 +28,20 @@ public class UserController {
     @Autowired
     private UserServices userServices;
 
-    @GetMapping("/all")
+
+    //Muestra todo los usuarios
+    @GetMapping("/todo")
     public List<User>getUser(){
+        return userServices.getAll();
+    }
+
+
+    //guarda el usuario
+    
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<User> saveUser(@RequestBody User date){
+        userServices.saveUser(date);
         return userServices.getAll();
     }
     // @GetMapping("/{id}")
@@ -37,21 +49,23 @@ public class UserController {
     //     return userServices.getUser(id);
     // }
 
+    //valida la existencia del usuario por medio del email
     @GetMapping("/{email}")
     public boolean getEmail(@PathVariable("email")String email){
         return userServices.getEmail(email);
     }
 
+    // valida que las credenciales del usuario
     @GetMapping("/{email}/{password}")
     public User getEmail(@PathVariable("email")String email,@PathVariable("password")String password){
         return userServices.getEmailPassword(email,password);
     }
     
-    @PostMapping("/new")
-    @ResponseStatus(HttpStatus.CREATED)
-    public User saveUser(@RequestBody User date){
-        return userServices.saveUser(date);
-    }
+    // @PostMapping("/new")
+    // @ResponseStatus(HttpStatus.CREATED)
+    // public User saveUser(@RequestBody User date){
+    //     return userServices.saveUser(date);
+    // }
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public User updateUser(@RequestBody User date){

@@ -30,7 +30,7 @@ public class UserController {
 
 
     //Muestra todo los usuarios
-    @GetMapping("/todo")
+    @GetMapping("/all")
     public List<User>getUser(){
         return userServices.getAll();
     }
@@ -38,16 +38,12 @@ public class UserController {
 
     //guarda el usuario
     
-    @PostMapping("/all")
+    @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<User> saveUser(@RequestBody User date){
-        userServices.saveUser(date);
-        return userServices.getAll();
+    public User saveUser(@RequestBody User date){
+        return userServices.saveUser(date);
+        
     }
-    // @GetMapping("/{id}")
-    // public Optional<User>getUser(@PathVariable("id")int id){
-    //     return userServices.getUser(id);
-    // }
 
     //valida la existencia del usuario por medio del email
     @GetMapping("/{email}")
@@ -55,7 +51,7 @@ public class UserController {
         return userServices.getEmail(email);
     }
 
-    // valida que las credenciales del usuario
+     // valida que las credenciales del usuario
     @GetMapping("/{email}/{password}")
     public User getEmail(@PathVariable("email")String email,@PathVariable("password")String password){
         return userServices.getEmailPassword(email,password);
@@ -66,14 +62,14 @@ public class UserController {
     // public User saveUser(@RequestBody User date){
     //     return userServices.saveUser(date);
     // }
-    @PutMapping("/update")
-    @ResponseStatus(HttpStatus.CREATED)
-    public User updateUser(@RequestBody User date){
-        return userServices.updateUser(date);
-    }
-    @DeleteMapping("/{numId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean deleteUser(@PathVariable("numId")int id){
-        return userServices.deleteUser(id);
-    }
+    // @PutMapping("/update")
+    // @ResponseStatus(HttpStatus.CREATED)
+    // public User updateUser(@RequestBody User date){
+    //     return userServices.updateUser(date);
+    // }
+    // @DeleteMapping("/{numId}")
+    // @ResponseStatus(HttpStatus.NO_CONTENT)
+    // public boolean deleteUser(@PathVariable("numId")int id){
+    //     return userServices.deleteUser(id);
+    // }
 }

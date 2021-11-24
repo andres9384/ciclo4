@@ -4,20 +4,30 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.springframework.lang.NonNull;
+
+
+
+
+
 
 @Entity
-@Table(name="user")
+@Table(name="user",indexes = @Index(name= "indx_email",columnList = "user_email",unique = true))
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
-    
-    // @Column(unique = true , nullable = false)
+
+    @NonNull
+    @Column(name= "user_email",length = 50, nullable = false)
     private String email;
 
+    @NonNull
+    @Column(name= "password",length = 50, nullable = false)
    private String password;
 
-   
+   @NonNull
+   @Column(name= "user_name",length = 80, nullable = false)
    private String name;
 
    public User() {
